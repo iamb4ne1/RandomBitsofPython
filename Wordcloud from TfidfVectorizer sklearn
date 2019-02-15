@@ -1,0 +1,12 @@
+    v = TfidfVectorizer(max_df=1., min_df = 0.01, stop_words=my_stop_words, ngram_range=(3, 3))
+    x = v.fit_transform(df['lyrics'], )
+    
+    
+    weights =  dict([(pair[0],pair[1]) for pair in zip(v.get_feature_names(), np.mean(x.todense(), axis=0).ravel().tolist()[0]
+                                                        ) 
+                    ])
+    wordcloud = WordCloud().generate_from_frequencies(weights)
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis("off")
+    plt.title('Wordcloud for trigrams')
+    plt.savefig('Wordcloud for trigrams.jpg')
